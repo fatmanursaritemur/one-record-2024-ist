@@ -1,0 +1,152 @@
+
+<p-progressSpinner *ngIf="loading" class="progress-bar"></p-progressSpinner>
+
+<div class="d-flex card mb-1">
+  <p-stepper orientation="vertical">
+    <p-stepperPanel header="List Flight">
+      <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
+        <div class="flex flex-column">
+          <div style="margin-top:2%">
+            <div class="card">
+              <p-table responsiveLayout="scroll" #dt
+                       [value]="flights"
+                       [(selection)]="selectedFlights"
+                       dataKey="flightNumber"
+                       [rowHover]="true"
+                       [rows]="7"
+                       [showCurrentPageReport]="false"
+                       [rowsPerPageOptions]="[7, 14, 21]"
+                       [paginator]="false"
+                       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+
+              >
+                <ng-template pTemplate="header" id="dt">
+                  <tr>
+                    <th style="width: 4rem">
+                      <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+
+                    <th pSortableColumn="flightNumber">
+                      <div class="flex justify-content-between align-items-center">
+                        Flight Number
+                      </div>
+                    </th>
+                    <th pSortableColumn="flightStatus">
+                      <div class="flex justify-content-between align-items-center">
+                        Destination
+                      </div>
+                    </th>
+
+                    <th pSortableColumn="flightStatus">
+                      <div class="flex justify-content-between align-items-center">
+                        Flight Status
+                      </div>
+                    </th>
+
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-flight>
+                  <tr class="p-selectable-row">
+                    <td>
+                      <p-tableCheckbox [value]="flight"></p-tableCheckbox>
+                    </td>
+
+                    <td>
+                      <span class="p-column-title">Flight Number</span>
+                      {{ flight.flightNumber }}
+                    </td>
+
+                    <td>
+                      <span class="p-column-title">Destination</span>
+                      {{ flight.destination }}
+                    </td>
+
+                    <td>
+                      <span class="p-column-title">Flight Status</span>
+                      <i class=" {{ flight.flightStatus }}" style="color:{{ flight.color }}"></i>
+                    </td>
+
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+        <div class="flex">
+          <button pButton type="button" (click)="nextCallback.emit()"
+                  label="Next" style="background-color: #8e2157;  margin-top: 2%"
+                  icon="pi pi-arrow-right"
+                  class="p-button-sm  p-button-rounded
+                           p-button-outlined p-button-danger">
+          </button>
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header="Operation Type(Ramp)">
+      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                   let-index="index">
+        <div class="flex flex-column h-10rem" style="margin-top:5%">
+          <div class="card">
+            <div class="radio">
+              <input id="radio-1" name="radio" type="radio">
+              <label for="radio-1" class="radio-label">WDO</label>
+            </div>
+            <div class="radio">
+              <input id="radio-2" name="radio" type="radio">
+              <label for="radio-2" class="radio-label">ONB</label>
+            </div>
+            <div class="radio">
+              <input id="radio-3" name="radio" type="radio">
+              <label for="radio-3" class="radio-label">AUS</label>
+            </div>
+            <div class="radio">
+              <input id="radio-4" name="radio" type="radio">
+              <label for="radio-4" class="radio-label">AUE</label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="flex">
+          <button pButton type="button" (click)="prevCallback.emit()" icon="pi pi-arrow-left"
+                  label="Back" style="background-color: #8e2157;  margin-top: 2%"
+                  class="p-button-sm p-button-rounded
+                           p-button-outlined p-button-danger">
+          </button>
+
+          <button pButton type="button" (click)="makeDelay(nextCallback)" icon="pi pi-check"
+                  label="Send" style="background-color: #8e2157;  margin-top: 2%"
+                  class="p-button-sm  p-button-rounded
+                           p-button-outlined p-button-danger">
+          </button>
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+
+    <p-stepperPanel header="Complete">
+      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                   let-index="index">
+        <div>
+          <app-aircraft-loading *ngIf="showDelay"></app-aircraft-loading>
+          <div *ngIf="!showDelay">
+            <div style="border-radius:100px; height:100px; width:100px;
+            background: #22b33a; text-align: center; margin-left: 27%; margin-top: 5%">
+              <i style="color: #ffffff;
+              font-size: 50px; font-weight: bolder; margin-right:5px;
+              line-height: 100px;">✓</i>
+            </div>
+            <div style="margin-left: 23%; margin-top: 5%; font-weight: bolder; font-size: xx-large">Success</div>
+            <div class="flex flex-column align-items-center" style="margin-right: 120px;">
+              <div style="margin-left: 20%; margin-top: 5%; font-weight: bolder; font-size: medium">Aircraft unloading</div>
+              <div style="margin-left: 20%; margin-top: 5%; font-weight: bolder; font-size: medium">ended for TK1453</div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+
+  </p-stepper>
+
+</div>
+
+

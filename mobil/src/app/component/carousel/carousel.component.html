@@ -1,0 +1,96 @@
+<div class="card">
+    <p-carousel [value]="logicObj" [numVisible]="300" [responsiveOptions]="responsiveOptions">
+        <ng-template let-product pTemplate="item">
+            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+                <div class="mb-3">
+                    <img src="assets/icons/{{ product.image }}" [alt]="product.name" [class.w-10] = "product.name.includes('TK')" [class.w-6] = "!product.name.includes('TK')" />
+                </div>
+                <div>
+                    <h4 class="mb-1">{{ product.name }}</h4>
+                  <!--                    <h6 class="mt-0 mb-3">{{ '$' + product.price }}</h6>-->
+
+                  <div style="margin-top: 5px;">
+                    <p-tag [value]="'P:  '+product.planned" [severity]="getSeverityDep('P')"></p-tag>
+                  </div>
+                  <div *ngIf="product.actual" style="margin-top: 5px;">
+                    <p-tag [value]="'A:  '+product.actual" [severity]="getSeverityDep('A')"></p-tag>
+                  </div>
+
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+
+<p-divider></p-divider>
+
+<div *ngIf="flight2" class="card">
+  <p-carousel [value]="logicObj2" [numVisible]="300" [responsiveOptions]="responsiveOptions">
+    <ng-template let-product pTemplate="item">
+      <div class="border-1 surface-border border-round m-2 text-center py-5 px-3"
+           [class.dont-show-card]="product.name === 'LAT' || product.name ==  'RCS'">
+        <div class="mb-3">
+          <img src="assets/icons/{{ product.image }}" [alt]="product.name" [class.w-10] = "product.name.includes('TK')" [class.w-6] = "!product.name.includes('TK')" />
+        </div>
+        <div>
+          <h4 class="mb-1">{{ product.name }}</h4>
+          <!--                    <h6 class="mt-0 mb-3">{{ '$' + product.price }}</h6>-->
+
+          <div style="margin-top: 5px;">
+            <p-tag [value]="'P:  '+product.planned" [severity]="getSeverityDep('P')"></p-tag>
+          </div>
+          <div *ngIf="product.actual" style="margin-top: 5px;">
+            <p-tag [value]="'A:  '+product.actual" [severity]="getSeverityDep('A')"></p-tag>
+          </div>
+
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
+
+<p-divider></p-divider>
+
+
+
+<p-table [value]="messageList" [tableStyle]="{'min-width': '50rem'}">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th>Piece ID</th>
+      <th>Goods Description</th>
+      <th>Gross Weight</th>
+      <th>Special Handling Code</th>
+      <th>Piece Status</th>
+    </tr>
+    <tr>
+      <th>
+        <p-columnFilter type="text" field="pieceId"></p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter type="text" field="goodsDescription"></p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter type="text" field="grossWeight"></p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter type="text" field="specialHandlingCodes"></p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter type="text" field="specialHandlingCodes"></p-columnFilter>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product let-columns="columns">
+    <tr>
+      <td>{{product.pieceId}}</td>
+      <td>{{product.goodsDescription}}</td>
+      <td>{{product.grossWeight}}</td>
+      <td>{{product.specialHandlingCodes}}</td>
+      <td><p-tag [value]="product.specialHandlingCodes" [severity]="getSeverity(product.specialHandlingCodes)"></p-tag></td>
+
+    </tr>
+  </ng-template>
+</p-table>
+
+
+

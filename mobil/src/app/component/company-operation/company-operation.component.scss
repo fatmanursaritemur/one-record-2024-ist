@@ -1,0 +1,226 @@
+:host ::ng-deep {
+  .p-paginator {
+    .p-paginator-current {
+      margin-left: auto;
+    }
+  }
+
+  .p-progressbar {
+    height: .5rem;
+    background-color: #D8DADC;
+
+    .p-progressbar-value {
+      background-color: #607D8B;
+    }
+  }
+
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .p-calendar .p-datepicker {
+    min-width: 25rem;
+
+    td {
+      font-weight: 400;
+    }
+  }
+
+  .p-datatable.p-datatable-customers {
+    .p-datatable-header {
+      padding: 1rem;
+      text-align: left;
+      font-size: 1.5rem;
+    }
+
+    .p-paginator {
+      padding: 1rem;
+    }
+
+    .p-datatable-thead > tr > th {
+      text-align: left;
+    }
+
+    .p-datatable-tbody > tr > td {
+      cursor: auto;
+    }
+
+    .p-dropdown-label:not(.p-placeholder) {
+      text-transform: uppercase;
+    }
+  }
+
+  .p-w-100 {
+    width: 100%;
+  }
+
+  /* Responsive */
+  .p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
+    display: none;
+  }
+
+  .p-button {
+    margin: 3px;
+  }
+
+}
+
+@media screen and (max-width: 960px) {
+  :host ::ng-deep {
+    .p-datatable {
+      &.p-datatable-customers {
+        .p-datatable-thead > tr > th,
+        .p-datatable-tfoot > tr > td {
+          display: none !important;
+        }
+
+        .p-datatable-tbody > tr {
+          border-bottom: 1px solid var(--layer-2);
+
+          > td {
+            text-align: left;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            border: 0 none;
+
+            .p-column-title {
+              min-width: 30%;
+              display: inline-block;
+              font-weight: bold;
+            }
+
+            p-progressbar {
+              width: 100%;
+            }
+
+            &:last-child {
+              border-bottom: 1px solid var(--surface-d);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.action-button {
+  margin-right: 25px;
+}
+
+::ng-deep .action-button .p-button {
+  background-color: #1976d2;
+  border: #1976d2;
+}
+
+.dialog-content {
+  padding: 20px;
+}
+
+
+:host ::ng-deep .p-button {
+  background-color: #1976d2;
+  color: white;
+  border: #1976d2;
+}
+
+:host #button {
+  background-color: #1976d2;
+  color: #1976d2;
+}
+
+.input-container {
+  margin-bottom: 15px;
+}
+
+.data-field {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-container {
+  flex: 0 0 33%; /* İki tane yan yana gelmesi için */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.detail-button {
+  background-color: #3b82f6;
+  border: #3b82f6;
+  height:35px;
+  width:35px;
+}
+
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sendButton {
+  margin-left: 10px;
+}
+
+.p-steps .p-steps-item.p-steps-disabled .p-steps-number .pi:before {
+  content: "\f00c"; // Tik işareti için Unicode değeri
+}
+
+.custom-stepper {
+  display: flex;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+}
+
+.step-line {
+  width: 70px;
+  height: 2px;
+  background-color: #ccc;
+  margin: 0 10px;
+}
+
+.step-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step.completed {
+  background-color: green;
+}
+
+.step-circle i {
+  color: white;
+}
+
+.menu-item {
+  margin-top: 75px; /* Yukarıdan boşluk */
+  font-size: 14px; /* Yazı boyutu */
+  color: #333; /* Yazı rengi */
+  font-weight: bold; /* Yazı kalınlığı */
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header .p-dialog-title {
+  margin-left: 26px;
+}

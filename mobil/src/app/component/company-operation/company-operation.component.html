@@ -1,0 +1,154 @@
+<p-toast position="bottom-right"></p-toast>
+
+<p-progressSpinner *ngIf="loading" class="progress-bar"></p-progressSpinner>
+
+<div class="d-flex card mb-1">
+  <p-stepper orientation="vertical">
+    <p-stepperPanel header="List Flight">
+      <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
+        <div class="flex flex-column">
+          <div style="margin-top:2%">
+            <div class="card">
+              <p-table responsiveLayout="scroll" #dt
+                       [value]="flights"
+                       [(selection)]="selectedFlights"
+                       dataKey="flightNumber"
+                       [rowHover]="true"
+                       [rows]="7"
+                       [showCurrentPageReport]="true"
+                       [rowsPerPageOptions]="[7, 14, 21]"
+                       [paginator]="true"
+                       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+
+              >
+                <ng-template pTemplate="header" id="dt">
+                  <tr>
+                    <th style="width: 4rem">
+                      <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+
+                    <th pSortableColumn="flightNumber">
+                      <div class="flex justify-content-between align-items-center">
+                        Flight Number
+                        <p-sortIcon field="flightNumber"></p-sortIcon>
+                        <p-columnFilter type="text" field="flightNumber" display="menu"
+                                        class="ml-auto"></p-columnFilter>
+                      </div>
+                    </th>
+                    <th pSortableColumn="flightStatus">
+                      <div class="flex justify-content-between align-items-center">
+                        Flight Status
+                        <p-sortIcon field="flightStatus"></p-sortIcon>
+                        <p-columnFilter type="text" field="flightStatus" display="menu"
+                                        class="ml-auto"></p-columnFilter>
+                      </div>
+                    </th>
+
+
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-flight>
+                  <tr class="p-selectable-row">
+                    <td>
+                      <p-tableCheckbox [value]="flight"></p-tableCheckbox>
+                    </td>
+
+                    <td>
+                      <span class="p-column-title">Flight Number</span>
+                      {{ flight.flightNumber }}
+                    </td>
+
+                    <td>
+                      <span class="p-column-title">Flight Status</span>
+                      <i class=" {{ flight.flightStatus }}" style="color:{{ flight.color }}"></i>
+                    </td>
+
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                  <tr>
+                    <td colspan="8">No customers found.</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+        <div class="flex">
+          <button pButton type="button" (click)="nextCallback.emit()"
+                  label="Next" style="background-color: #e1251b"
+                  icon="pi pi-arrow-right"
+                  class="p-button-sm  p-button-rounded
+                           p-button-outlined p-button-danger">
+          </button>
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+    <p-stepperPanel header="Opration Type">
+      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                   let-index="index">
+        <div class="flex flex-column h-12rem" style="margin-top:5%">
+          <div class="card flex">
+            <p-dropdown
+              [options]="operationTypes"
+              [(ngModel)]="selectedOperationType"
+              placeholder="Select a operation type"/>
+          </div>
+
+
+        </div>
+        <div class="flex">
+          <button pButton type="button" (click)="prevCallback.emit()" icon="pi pi-arrow-left"
+                  label="Back" style="background-color: #e1251b"
+                  class="p-button-sm p-button-rounded
+                           p-button-outlined p-button-danger">
+          </button>
+
+          <button pButton type="button" (click)="nextCallback.emit()" icon="pi pi-check"
+                  label="Send" style="background-color: #16a249"
+                  class="p-button-sm  p-button-rounded
+                           p-button-outlined p-button-danger">
+          </button>
+
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+
+    <p-stepperPanel header="Summary">
+      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                   let-index="index">
+        <div class="flex " >
+
+          <style>
+            body {
+              text-align: center;
+              padding: 1%;
+            }
+            h1 {
+              color: #88B04B;
+              font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+              font-weight: 900;
+              font-size: 20px;
+            }
+            p2 {
+              font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+              font-size: 20px;
+              margin: 0;
+            }
+
+          </style>
+          <body>
+
+          <h1>Success</h1>
+          <p>We received your purchase request</p>
+          </body>
+
+        </div>
+      </ng-template>
+    </p-stepperPanel>
+
+  </p-stepper>
+</div>
+
+

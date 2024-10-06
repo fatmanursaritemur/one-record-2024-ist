@@ -1,0 +1,359 @@
+<p-toast position="bottom-right"></p-toast>
+
+<p-progressSpinner *ngIf="loading" class="progress-bar"></p-progressSpinner>
+
+<div class="card" style="margin-top:-50px">
+  <p-table
+    #dt
+    [value]="customers"
+    [(selection)]="selectedCustomers"
+    dataKey="pieceId"
+    [rowHover]="true"
+    [rows]="7"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[7, 14, 21]"
+    [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [filterDelay]="0"
+  >
+    <ng-template pTemplate="caption">
+      <div class="table-header" style="font-size:20px;margin-top:5px">
+        List of Widect Pieces
+        <div class="flex">
+          <button pButton label="Clear" class="p-button-outlined"
+                  style="background-color:white; border-color:black;color:black"
+                  icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 4rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="pieceId" style="min-width: 4rem">
+          <div class="flex justify-content-between align-items-center">
+            Piece Id
+            <p-sortIcon field="pieceId"></p-sortIcon>
+            <p-columnFilter type="text" field="pieceId" display="menu" class="ml-auto"></p-columnFilter>
+          </div>
+        </th>
+        <th pSortableColumn="grossWeight" style="min-width: 13rem">
+          <div class="flex justify-content-between align-items-center">
+            Gross Weight
+            <p-sortIcon field="grossWeight"></p-sortIcon>
+            <p-columnFilter type="text" field="grossWeight" display="menu" class="ml-auto"></p-columnFilter>
+          </div>
+        </th>
+        <th pSortableColumn="goodsDescription" style="min-width: 6rem">
+          <div class="flex justify-content-between align-items-center">
+            Piece Description
+            <p-sortIcon field="goodsDescription"></p-sortIcon>
+            <p-columnFilter type="text" field="goodsDescription" display="menu" class="ml-auto"></p-columnFilter>
+          </div>
+        </th>
+        <th pSortableColumn="shipper.name" style="min-width: 6rem">
+          <div class="flex justify-content-between align-items-center">
+            Shipper Name
+            <p-sortIcon field="shipper.name"></p-sortIcon>
+            <p-columnFilter type="text" field="shipper.name" display="menu" class="ml-auto"></p-columnFilter>
+          </div>
+        </th>
+        <th pSortableColumn="consignee.name" style="min-width: 6rem">
+          <div class="flex justify-content-between align-items-center">
+            Consignee Name
+            <p-sortIcon field="consignee.name"></p-sortIcon>
+            <p-columnFilter type="text" field="consignee.name" display="menu" class="ml-auto"></p-columnFilter>
+          </div>
+        </th>
+        <th pSortableColumn="msds" style="min-width: 7rem">
+          <div class="flex justify-content-between align-items-center">
+            MSDS
+            <p-sortIcon field="msds"></p-sortIcon>
+            <p-columnFilter field="msds" matchMode="equals" display="menu" class="ml-auto">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                  <ng-template let-option pTemplate="item">
+                    <p-tag [value]="option.label" [severity]=undefined></p-tag>
+                  </ng-template>
+                </p-dropdown>
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+        <th pSortableColumn="customsCheck" style="min-width: 7rem">
+          <div class="flex justify-content-between align-items-center">
+            Custom Check
+            <p-sortIcon field="customsCheck"></p-sortIcon>
+            <p-columnFilter field="customsCheck" matchMode="equals" display="menu" class="ml-auto">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                  <ng-template let-option pTemplate="item">
+                    <p-tag [value]="option.label" [severity]=undefined></p-tag>
+                  </ng-template>
+                </p-dropdown>
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+        <th pSortableColumn="bookingStatus" style="min-width: 10rem">
+          <div class="flex justify-content-between align-items-center">
+            Booking Status
+            <p-sortIcon field="bookingStatus"></p-sortIcon>
+            <p-columnFilter field="bookingStatus" matchMode="equals" display="menu" class="ml-auto">
+              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                <p-dropdown [ngModel]="value" [options]="booleanStatuses" (onChange)="filter($event.value)"
+                            placeholder="Any">
+                  <ng-template let-option pTemplate="item">
+                    <p-tag [value]="option.label" [severity]=undefined></p-tag>
+                  </ng-template>
+                </p-dropdown>
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+        <th pSortableColumn="parcelStatus" style="min-width: 6rem">
+          <div class="flex justify-content-between align-items-center">
+            Parcel Status
+            <p-sortIcon field="parcelStatus"></p-sortIcon>
+            <p-columnFilter type="text" field="parcelStatus" display="menu" class="ml-auto"></p-columnFilter>
+          </div>
+        </th>
+        <th style="min-width:10rem">
+          <div class="flex align-items-center">
+            Progress
+            <p-columnFilter field="status" matchMode="between" display="menu" [showMatchModes]="false"
+                            [showOperator]="false" [showAddButton]="false">
+              <ng-template pTemplate="filter" let-filter="filterCallback">
+                <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)"
+                          styleClass="m-3"></p-slider>
+                <div class="flex align-items-center px-2">
+                  <span>{{ activityValues[0] }}</span>
+                  <span>{{ activityValues[1] }}</span>
+                </div>
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+        <th style="width: 5rem"></th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer>
+      <tr class="p-selectable-row">
+        <td>
+          <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+        </td>
+        <td>
+          <span class="p-column-title">Piece Id</span>
+          {{ customer.pieceId }}
+        </td>
+        <td>
+          <span class="p-column-title">Gross Weight</span>
+          {{ customer.grossWeight }}
+        </td>
+        <td>
+          <span class="p-column-title">Piece Description</span>
+          {{ customer.goodsDescription }}
+        </td>
+        <td>
+          <span class="p-column-title">Shipper Name</span>
+          {{ customer.shipper.name }}
+        </td>
+        <td>
+          <span class="p-column-title">Hs Code</span>
+          {{ customer.consignee.name }}
+        </td>
+        <td>
+          <span class="p-column-title">Msds</span>
+          <p-tag [value]="customer.msds" pTooltip="UN number exist for this parcel, please complete the UN check step"
+                 [tooltipDisabled]="customer.msds===Status.VERIFIED || customer.msds===Status.NOT_VERIFIED "
+                 *ngIf="customer.msds!==Status.UNDEFINED"
+                 [severity]="this.getSeverityByStatus(customer.msds)"></p-tag>
+          <i style="margin-left: 5px" class="pi pi-file-import" *ngIf="checkStatusAndVersion(customer)"></i>
+        </td>
+        <td>
+          <span class="p-column-title">Customs Check</span>
+          <p-tag [value]="customer.customsCheck" [severity]="this.getSeverityByStatus(customer.customsCheck)"
+                 *ngIf="customer.customsCheck!==Status.UNDEFINED"></p-tag>
+        </td>
+        <td>
+          <span class="p-column-title">Booking Status</span>
+          <p-tag [value]="customer.bookingStatus"
+                 [severity]="this.getSeverityByBooleanStatus(customer.bookingStatus)"
+                 *ngIf="customer.bookingStatus!==BooleanStatus.False"></p-tag>
+        </td>
+        <td>
+          <span class="p-column-title">Parcel Status</span>
+          {{ customer.parcelStatus }}
+        </td>
+        <td>
+          <span class="p-column-title">Activity</span>
+          <p-progressBar [value]="this.getActivityStatus(customer)" [showValue]="false"></p-progressBar>
+        </td>
+        <td style="text-align: center">
+          <button pButton type="button" class="detail-button" (click)="showDialog(customer)" icon="pi pi-eye"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8">No customers found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div style="margin-top:20px;margin-left: 10px">
+  <p-button (onClick)="checkMsdsRequest()" class="action-button" label="MSDS Request"></p-button>
+  <p-button (onClick)="checkMsds(selectedCustomers)" class="action-button" label="MSDS Check"></p-button>
+  <p-button (onClick)="checkUN()" class="action-button" label="UN Check"></p-button>
+  <p-button (onClick)="checkCustomsPreFilling()" class="action-button" label="Customs Filling"></p-button>
+  <p-button (onClick)="declarationDg()" class="action-button" label="Additional Requirement"></p-button>
+  <p-button (onClick)="createBookingRequest()" class="action-button"
+            label="Create Booking Request"></p-button>
+  <p-button (onClick)="executeAwb()" class="action-button" label="Execute AWB"></p-button>
+</div>
+
+<p-dialog header="Piece Detail" [(visible)]="pieceDetailVisible" [style]="{width: '1100px'}" [maximizable]="true"
+          [responsive]="true" [modal]="true">
+
+  <div class="custom-stepper" style="margin-left:50px">
+
+    <ng-container *ngFor="let step of steps; let i = index">
+      <div class="step">
+        <div class="step-circle" [ngStyle]="{'background-color': this.stepText[i]==='' ? '#3B82F6FF' : '#CFD5DEFF'}">
+          <ng-container>
+            <ng-container>
+              {{this.stepText[i]}}
+              <i *ngIf="isPreviousStep(i)" class="pi pi-check"></i>
+              <i *ngIf="isCurrentStep(i)" class="pi pi-pencil"></i>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div *ngIf="i!==steps.length-1" class="step-line"></div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="dialog-content" style="margin-left:20px">
+    <ng-container *ngFor="let step of steps; let i = index">
+      <span style="margin-right:30px"> {{this.menuItems[i]}}</span>
+    </ng-container>
+  </div>
+
+  <div class="dialog-content" *ngIf="sCustomerDetail!==undefined">
+    <div class="input-row">
+      <div class="input-container">
+        <label style="font-weight:bold">Piece Id: </label> {{sCustomerDetail.pieceId}}
+        <!-- <div class="data-field">bla</div>-->
+      </div>
+      <div class="input-container">
+        <label style="font-weight:bold">Gross Weight:</label> {{sCustomerDetail.grossWeight}}
+        <!--    <div class="data-field">bla</div> -->
+      </div>
+      <div class="input-container">
+        <label style="font-weight:bold">Piece Description:</label> {{sCustomerDetail.goodsDescription}}
+        <!--    <div class="data-field">bla</div> -->
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-container">
+        <label style="font-weight:bold">Hs Code: </label> {{sCustomerDetail.product.hsCode.code}}
+        <!-- <div class="data-field">bla</div>-->
+      </div>
+      <div class="input-container">
+        <label style="font-weight:bold">Hs Code List Name: </label> {{sCustomerDetail.product.hsCode.codeListName}}
+        <!--    <div class="data-field">bla</div> -->
+      </div>
+      <div class="input-container">
+        <label style="font-weight:bold">Product UnNumber:</label> {{sCustomerDetail.product.unNumber}}
+        <!--    <div class="data-field">bla</div> -->
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-container">
+        <label style="font-weight:bold">Shipper
+          Adress: </label> {{sCustomerDetail.shipper.basedAtLocation.locationName}}
+        <!-- <div class="data-field">bla</div>-->
+      </div>
+      <div class="input-container">
+        <label style="font-weight:bold">Shipper Name: </label> {{sCustomerDetail.shipper.name}}
+        <!--    <div class="data-field">bla</div> -->
+      </div>
+      <div class="input-container">
+        <label style="font-weight:bold">Shipper EORI Number: </label> {{sCustomerDetail.shipper.textualValue}}
+        <!--    <div class="data-field">bla</div> -->
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-container">
+        <label style="font-weight:bold">Consignee Name: </label>  {{sCustomerDetail.consignee.name}}
+        <!-- <div class="data-field">bla</div>-->
+      </div>
+      <div class="input-container">
+        <label style="font-weight:bold">EORI Number:</label>  {{sCustomerDetail.shipper.textualValue}}
+        <!--    <div class="data-field">bla</div> -->
+      </div>
+      <div class="input-container">
+        <label style="font-weight:bold">AWB Number:</label> {{awbNumber}}
+        <!--    <div class="data-field">bla</div> -->
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog header="Create Booking Request" [(visible)]="createBookingVisible" [style]="{width: '500px',height:'200px'}"
+          [maximizable]="true"
+          [responsive]="true" [modal]="true">
+  <div class="flex py-2 justify-content-center" style="align-items: center;">
+    <div class="card flex justify-content-center">
+      <div class="card flex justify-content-center">
+        <div class="input-row">
+          <p-dropdown appendTo="body" [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name"
+                      [showClear]="false"
+                      placeholder="Select a Country">
+            <ng-template pTemplate="selectedItem">
+              <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+                <img src="assets/icons/{{ selectedCountry.code }}" style="width: 40px"/>
+                <div>{{ selectedCountry.name }}</div>
+              </div>
+            </ng-template>
+            <ng-template let-country pTemplate="item">
+              <div class="flex align-items-center gap-2">
+                <img src="assets/icons/{{  country.code}}" style="width: 40px"/>
+                <div>{{ country.name }}</div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+    <p-button icon="pi pi-check" class="sendButton action-button" (click)="visible = false" label="Send" pAutoFocus
+              (onClick)="closeCreateBookingDialog()" [autofocus]="true"></p-button>
+  </div>
+</p-dialog>
+
+
+<p-dialog header="Request For Infromation (RFI)" [(visible)]="dgDeclarationVisible"
+          [style]="{width: '500px',height:'400px'}"
+          [maximizable]="true"
+          [responsive]="true" [modal]="true">
+
+  <div class="dialog-content dg" style="margin-left:5px">
+    <div style="font-size:20px;font-weight:bold">
+      Customs: Please state the shipment type.
+    </div>
+    <textarea rows="10" style="width: 100%; margin-top: 10px"></textarea>
+  </div>
+
+  <div>
+    <div>
+      <div class="input-row" style="margin-left:317px">
+        <p-button icon="pi pi-check" class="sendButton action-button" (click)="visible = false" label="Send" pAutoFocus
+                  (onClick)="closeDeclarationDgDialog()" [autofocus]="true"></p-button>
+      </div>
+    </div>
+  </div>
+
+</p-dialog>

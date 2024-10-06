@@ -1,0 +1,49 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+#chartdiv {
+  width: 110%;
+  height: 400px;
+  margin-left: -100px;
+}
+
+#infodiv {
+  margin-top: 1%;
+  width: 100%;
+  height: 100px;
+}
+
+#infodiv2 {
+  border: outset 0.5rem grey;
+  border-radius: 1em;
+  margin: 5%;
+  padding-left: 1%;
+  height: 200px;
+}
+
+.infoBox {
+  float: left;
+  border: outset 0.5rem grey;
+  border-radius: 2em;
+  padding: 5px;
+  margin: 5%
+}
+
+.infoBox2 {
+  padding: 3%;
+}
+
+.infoBox3 {
+  float: left;
+  padding: 1%;
+}
+
+.col {
+  float: left;
+  width: 25%;
+}
+
+.key {
+  font-weight: bold;
+}

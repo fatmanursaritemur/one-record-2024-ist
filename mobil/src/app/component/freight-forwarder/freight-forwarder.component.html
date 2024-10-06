@@ -1,0 +1,19 @@
+<p-toast position="bottom-right"></p-toast>
+
+<!--  <img src="assets/icons/cargo-plane.jpg" style="width: 25%" class="shadow-2"/>-->
+
+  <div style="padding-top: 10%" class="grid">
+    <div class="col-6 col-offset-4">
+
+
+      <div style="align-items: center" class="formgroup-inline">
+        <div class="field">
+          <input pInputText type="text" class="p-inputtext-lg" placeholder="Type AWB Number.." [(ngModel)]="awbNumber"/>
+        </div>
+        <div class="field">
+          <p-button icon="pi pi-search" (onClick)="getAWB()"></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+

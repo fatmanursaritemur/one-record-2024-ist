@@ -1,0 +1,87 @@
+<p-toast position="bottom-right"></p-toast>
+<div>
+
+  <div class="grid">
+    <div id="aa" class="grid" style="margin-left: 89px; width: 43%;">
+        <div class="col-10">
+            <span class="p-input-icon-left font-bold" style="width: 100%;">
+                <i class="pi pi-search"></i>
+                <input class="flex align-items-stretch" type="text" pInputText pKeyFilter="int"
+                       placeholder="Get Awb" style="width: 100%" [(ngModel)]="awb"/>
+            </span>
+        </div>
+        <div class="col-2">
+            <p-button severity="danger" label="Awb" (onClick)="getAwb()"></p-button>
+        </div>
+<!--        <div class="col-6 align-self-auto">
+            <label htmlFor="cargo-status">Cargo Status</label>
+            <span style="margin-left: 20px">
+            <p-dropdown id="cs" [options]="cargoStatuses" optionLabel="name"
+                        [(ngModel)]="currentCargoStatus"></p-dropdown>
+            </span>
+        </div>-->
+    </div>
+    <div style="margin-left: 95px">
+      <label htmlFor="cargo-status">Cargo Status</label>
+      <span style="margin-left: 20px">
+            <p-dropdown id="cs" [options]="cargoStatuses" optionLabel="name"
+                        [(ngModel)]="currentCargoStatus"></p-dropdown>
+            </span>
+
+    </div>
+  </div>
+
+  <div class="grid">
+        <div class="col-12">
+            <p-pickList severity="danger" [source]="sourcePieces" [target]="targetPieces"
+                        sourceHeader="Available Pieces" targetHeader="Selected Pieces"
+                        [dragdrop]="true" [responsive]="true"
+                        [sourceStyle]="{ height: '30rem' }"
+                        [targetStyle]="{ height: '30rem' }"
+                        filterBy="pieceId" sourceFilterPlaceholder="Search by Piece Id"
+                        targetFilterPlaceholder="Search by Piece Id"
+                        breakpoint="1400px">
+                <ng-template let-foh pTemplate="item">
+                    <div class="flex flex-wrap p-2 align-items-center ">
+                        <div class="flex-1 flex-column ">
+                            <span class="font-bold">{{ foh.pieceId }}</span>
+
+                            <div *ngIf="currentCargoStatus.name==='DEP' || currentCargoStatus.name==='ARR'; else otherContent"
+                                 class="flex align-self-end">
+                                <span class="font-bold text-900">Gross Weight:</span>
+                                <span>{{ foh.grossWeight }}</span>
+                                <span class="font-bold text-900">Goods Desc:</span>
+                                <span>{{ foh.goodsDescription }}</span>
+                                <span class="font-bold text-900">SCC:</span>
+                                <span>{{ foh.specialHandlingCodes }}</span>
+                                <span class="font-bold text-900">Flight:</span>
+                                <span>{{ foh.transportIdentifier }}</span>
+                            </div>
+
+                            <ng-template #otherContent>
+                                <div>
+                                    <span class="font-bold text-900">Gross Weight:</span>
+                                    <span>{{ foh.grossWeight }}</span>
+                                    <span class="font-bold text-900">Goods Desc:</span>
+                                    <span>{{ foh.goodsDescription }}</span>
+                                    <span class="font-bold text-900">SCC:</span>
+                                    <span>{{ foh.specialHandlingCodes }}</span>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-pickList>
+        </div>
+    </div>
+    <div class="flex flex-row-reverse flex-wrap" style="margin-right: 85px;">
+        <div class="flex align-items-center">
+            <p-button severity="danger" label="Send" (onClick)="saveOps()"></p-button>
+        </div>
+        <div class="flex align-items-center justify-content-center border-round font-bold m-2">
+            <p-calendar [(ngModel)]="date" [showTime]="true" [showSeconds]="true" [showIcon]="true"></p-calendar>
+        </div>
+    </div>
+</div>
+
+

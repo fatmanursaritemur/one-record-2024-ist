@@ -1,0 +1,83 @@
+<script src="//cdn.amcharts.com/lib/5/index.js"></script>
+<script src="//cdn.amcharts.com/lib/5/map.js"></script>
+<script src="//cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+<script src="//cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+<div id="chartdiv"></div>
+<div id="infodiv" style="font-size: large;margin-left:40px">
+  <div class="infoBox">
+    <span>Temperature</span>
+    <span style="margin-left: 50px;">9 C</span>
+  </div>
+  <div class="infoBox">
+    <span>Humidity</span>
+    <span style="margin-left: 81px;">%56</span>
+  </div>
+  <div class="infoBox">
+    <span>Latitude</span>
+    <span style="margin-left: 83px;"> 50.106505</span>
+  </div>
+  <div class="infoBox">
+    <span>Longitude</span>
+    <span style="margin-left: 70px;"> 8.561223</span>
+  </div>
+</div>
+
+<div id="infodiv2">
+  <div class="col">
+    <div class="infoBox2">
+      <span class="key">Piece Id:</span>
+      <span style="margin-left: 50px;">{{widectPiece.pieceId}}</span>
+    </div>
+    <div class="infoBox2">
+      <span class="key">Gross Weight:</span>
+      <span style="margin-left: 50px;">{{widectPiece.grossWeight}}</span>
+    </div>
+    <div class="infoBox2">
+      <span class="key">Piece Description:</span>
+      <span style="margin-left: 50px;">{{widectPiece.goodsDescription}}</span>
+    </div>
+  </div>
+  <div class="col">
+    <div class="infoBox2">
+      <span class="key">Hs Code:</span>
+      <span style="margin-left: 50px;">{{widectPiece.product.hsCode.code}}</span>
+    </div>
+    <div class="infoBox2">
+      <span class="key">Hs Code List Name:</span>
+      <span style="margin-left: 50px;">{{widectPiece.product.hsCode.codeListName}}</span>
+    </div>
+    <div class="infoBox2">
+      <span class="key">Product UnNumber:</span>
+      <span style="margin-left: 50px;">{{widectPiece.product.unNumber}}</span>
+    </div>
+  </div>
+  <div class="col">
+    <div class="infoBox2">
+      <span class="key">Shipper Adress:</span>
+      <span style="margin-left: 50px;">{{widectPiece.shipper.basedAtLocation.locationName}}</span>
+    </div>
+    <div class="infoBox2">
+      <span class="key">Shipper Name:</span>
+      <span style="margin-left: 50px;">{{widectPiece.shipper.name}}</span>
+    </div>
+    <div class="infoBox2">
+      <span class="key">Shipper EORI Number:</span>
+      <span style="margin-left: 50px;">{{widectPiece.shipper.textualValue}}</span>
+    </div>
+  </div>
+  <div class="col">
+    <div class="infoBox2">
+      <span class="key">Consignee Name:</span>
+      <span style="margin-left: 50px;">{{widectPiece.consignee.name}}</span>
+    </div>
+    <div class="infoBox2">
+      <span class="key">EORI Number:</span>
+      <span style="margin-left: 50px;">{{widectPiece.shipper.textualValue}}</span>
+    </div>
+    <div class="infoBox2">
+      <span class="key">AWB Number:</span>
+      <span style="margin-left: 50px;">{{awbNumber}}</span>
+    </div>
+  </div>
+</div>
+

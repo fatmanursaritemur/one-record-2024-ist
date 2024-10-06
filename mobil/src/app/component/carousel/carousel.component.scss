@@ -1,0 +1,13 @@
+:host ::ng-deep p-carousel {
+  //On later realease of PrimeNG, this can be done programmatically with [showIndicators | showNavigators]="false"
+  .p-carousel-indicators {
+    display: none !important;
+  }
+  .p-carousel-next, .p-carousel-prev {
+    display: none !important;
+  }
+  .dont-show-card {
+    display: none;
+  }
+
+}

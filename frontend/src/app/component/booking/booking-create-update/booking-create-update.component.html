@@ -1,0 +1,146 @@
+<p-toast></p-toast>
+<div class="grid">
+
+    <div class="col-5">
+            <span class="p-input-icon-left font-bold" style="width: 100%">
+                <i class="pi pi-search"></i>
+                <input class="flex align-items-stretch" type="text" pInputText pKeyFilter="int"
+                       placeholder="Get Awb" style="width: 100%" [(ngModel)]="awb"/>
+            </span>
+    </div>
+    <div class="col-1">
+        <p-button label="Get Awb" (onClick)="getAwb()"></p-button>
+    </div>
+
+</div>
+
+<div class="grid" style="margin-top: 20px">
+    <div class="col-12 md:col-6 lg:col-4 sm:flex-nowrap">
+        <div class="flex flex-column gap-2">
+            <label htmlFor="weight">Waybill Prefix</label>
+            <input type="text" pInputText [(ngModel)]="waybillPrefix"/>
+        </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-4 sm:flex-nowrap">
+        <div class="flex flex-column gap-2">
+            <label htmlFor="weight">Waybill Number</label>
+            <input type="text" pInputText [(ngModel)]="waybillnumber"/>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-12">
+    <div class="flex flex-row-reverse flex-wrap">
+        <div class="flex align-items-end">
+            <p-button label="Add Piece" (onClick)="addRow()"></p-button>
+        </div>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="col-12">
+        <p-table [value]="pieceList" dataKey="pieceId" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width:20%">Piece Id</th>
+                    <th style="width:20%">Gross Weight</th>
+                    <th style="width:20%">Goods Description</th>
+                    <th style="width:20%">Special Handling Codes</th>
+                    <th style="width:20%">Flight</th>
+                    <th style="width:20%">Exception Reason</th>
+                    <th style="width:20%"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-piece let-editing="editing" let-ri="rowIndex">
+                <tr [pEditableRow]="piece">
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text"
+                                       [value]="piece.pieceId" (change)="onChangePieceId($event,ri)">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{piece.pieceId}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="piece.grossWeight">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{piece.grossWeight}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="piece.goodsDescription">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{piece.goodsDescription}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="piece.specialHandlingCodes">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{piece.specialHandlingCodes}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-dropdown [options]="statuses" appendTo="body"
+                                            [(ngModel)]="piece.transportIdentifier"
+                                            [style]="{'width':'100%'}"></p-dropdown>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{piece.transportIdentifier}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="piece.exceptionReason">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{piece.exceptionReason}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <div class="flex align-items-center justify-content-center gap-2">
+                            <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                                    (click)="onRowEditInit(piece)" class="p-button-rounded p-button-text"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                                    (click)="onRowEditSave(piece)"
+                                    class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                                    (click)="onRowEditCancel(piece, ri)"
+                                    class="p-button-rounded p-button-text p-button-danger"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<div class="col-12" style="margin-top: 20px">
+    <div class="flex flex-row-reverse flex-wrap">
+        <div class="flex align-items-end">
+            <p-button [label]="awb === '' ? 'Save' : 'Update'" (onClick)="send()"></p-button>
+        </div>
+    </div>
+</div>
+

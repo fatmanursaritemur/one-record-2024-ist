@@ -1,0 +1,67 @@
+<p-toast></p-toast>
+<div style="width: 50%">
+<div class="grid">
+  <div class="col-12 md:col-6 lg:col-4 sm:flex-nowrap">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="origin">Origin</label>
+      <p-dropdown id="origin" [options]="cityList" [(ngModel)]="booking.origin" optionLabel="name"></p-dropdown>
+    </div>
+  </div>
+  <div class="col-12 md:col-6 lg:col-4">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="destination">Destination</label>
+      <p-dropdown id="destination" [options]="cityList" [(ngModel)]="booking.destination" optionLabel="name"></p-dropdown>
+    </div>
+  </div>
+ <div class="col-12 md:col-6 lg:col-4">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="date">Date</label>
+      <p-calendar id="date" [(ngModel)]="booking.date"></p-calendar>
+    </div>
+  </div>
+</div>
+<div class="grid">
+  <div class="col-12 md:col-6 lg:col-4 sm:flex-nowrap">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="nmb_pieces">Pieces</label>
+      <p-inputNumber inputId="nmb_pieces" [(ngModel)]="booking.piece"> </p-inputNumber>
+
+    </div>
+  </div>
+
+  <div class="col-12 md:col-6 lg:col-4 sm:flex-nowrap">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="weight">Weight</label>
+      <p-inputNumber inputId="weight" [(ngModel)]="booking.weight"> </p-inputNumber>
+    </div>
+  </div>
+
+  <div class="col-12 md:col-6 lg:col-4 sm:flex-nowrap">
+    <div class="flex flex-column gap-2">
+      <label htmlFor="dimension">Dimension</label>
+      <p-inputNumber inputId="dimension" [(ngModel)]="booking.dimension"> </p-inputNumber>
+    </div>
+  </div>
+
+</div>
+
+  <div class="grid flex-row-reverse">
+    <div class="flex flex-column gap-2">
+      &nbsp;
+      <p-button icon="pi pi-check" [disabled]="fwbBtnDisable" label="Send FWB" (onClick)="sendFWB()"></p-button>
+
+    </div>
+
+    <div class="flex flex-column gap-2" style="padding-right: 5px">
+      &nbsp;
+      <p-button label="Save Booking" (onClick)="saveBooking()"></p-button>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!--
+<label htmlFor="username">Username</label>
+<input pInputText id="username" aria-describedby="username-help" [(ngModel)]="booking"/>-->

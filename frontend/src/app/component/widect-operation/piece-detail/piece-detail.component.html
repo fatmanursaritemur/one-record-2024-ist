@@ -1,0 +1,12 @@
+<p-dialog header="AWB Detayları" [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{width: '400px'}">
+  <div>
+    <label for="awbNumber">AWB Numarası:</label>
+    <input id="awbNumber" type="text" pInputText [(ngModel)]="awbNumber" />
+  </div>
+  <div>
+    <label for="description">Açıklama:</label>
+    <textarea id="description" pInputTextarea [(ngModel)]="description" rows="4" cols="30"></textarea>
+  </div>
+
+  <p-steps [model]="steps" [(activeIndex)]="activeIndex" [readonly]="true"></p-steps>
+</p-dialog>

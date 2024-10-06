@@ -1,0 +1,32 @@
+::ng-deep {
+  .p-menuitem-icon {
+    color: #FFFFFF;
+    font-size: 17px;
+  }
+
+  .p-menuitem-text {
+    color: #FFFFFF;
+    font-size: 17px;
+    text-decoration: none;
+  }
+
+  .p-menuitem-text:hover {
+    color: #000000;
+    font-size: 17px;
+    text-decoration: none;
+  }
+
+  .p-menuitem-icon:hover {
+    color: #000000;
+    font-size: 17px;
+    text-decoration: none;
+  }
+
+   :host::ng-deep .p-menuitem-link {
+    text-decoration: none;
+  }
+
+  .p-menubar {
+    background: #272829;
+  }
+}

@@ -1,0 +1,471 @@
+<div class="flight mb-8">
+  <p class="text-white pl-3 pr-3 pt-1 pb-1" style="background-color: #cd1725;">Flight Route Map</p>
+  <section class="animation">
+    <div class="first">
+      <div>Planning</div>
+    </div>
+    <div class="second">
+      <div>Tracking</div>
+    </div>
+    <div class="third">
+      <div>Visibility</div>
+    </div>
+  </section>
+</div>
+<div class="section">
+  <div class="tpd-plan">
+    <div class="tp-flight-plan">
+      <div class="container-fluid" id="accordion2">
+        <div class="crop depart">
+          <div class="context collapsed" (click)="isOtherOpen(1)">
+            <a role="button" tabindex="0" class="tog-cal itin-det-btn">
+              <i class="fa fa-chevron-up"></i>
+              <i class="fa fa-chevron-down"></i>
+            </a>
+            <div class="item it-1">
+              <span class="trip-type depart">Departure</span>
+              <div class="route-dot">
+              </div>
+              <div class="airline-image">
+                <div
+                  class="df-text">{{ dateDiffInHours(ops1571[0].dateTime?.planningTime, ops2571[0].dateTime?.planningTime) }}
+                  Hours
+                </div>
+                <span class="img-wrapper">
+                    <svg class="anime-airplane">
+                        <use xlink:href="#airplane"></use>
+                    </svg>
+                    <span
+                      class="top-label">Direct</span>
+                </span>
+              </div>
+
+              <div class="port-seg">
+                <div class="flight-seg origin">
+                  <div class="time">{{ ops1571[0].dateTime?.planningTime | date : 'HH:mm' }}</div>
+                  <div class="port" style="padding-right: 25px">{{ ops1571[0].departure?.short }}</div>
+                  <div class="name">{{ ops1571[0].departure?.long }}</div>
+                </div>
+                <div class="flight-seg destination">
+                  <div class="time">{{ ops2571[0].dateTime?.planningTime | date : 'HH:mm' }}</div>
+                  <div class="port">{{ ops2571[0].departure?.short }}</div>
+                  <div class="name">{{ ops2571[0].departure?.long }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="item it-2">
+              <div class="dr-row">
+                <span class="al-name">Turkish Airlines </span>
+                <img class="airline-logo"
+                     src="https://www.turkishairlines.com/theme/img/carrierairlines/carriercode_tk.png"/>
+              </div>
+              <div class="take-tim">{{ ops1571[0].dateTime?.planningTime | date : 'MMM dd, yyyy' }}</div>
+              <div class="take-tim">{{ ops1571[0].flightNumber }}</div>
+            </div>
+          </div>
+          <div id="demo2" class="fly-wrap collapse {{step1 ? 'in' : ''}}">
+
+            <div class="flex mb-5 gap-2 justify-content-between border-round border-1 border-black-alpha-20 p-5">
+              <div class="flex flex-column align-items-center" *ngFor="let operation of ops1571">
+                <ng-container *ngIf="operation.tooltip && operation.status">
+                  <p-avatar [icon]="operation.icon"
+                            [label]="operation.icon ? '' : operation.label"
+                            styleClass="w-5rem h-5rem p-0"
+                            [style]="{'font-weight': 'bold', 'background-color': 'white', 'border': '1px solid #524c61'}"
+                            size="large"
+                            [pTooltip]="tooltipContent"
+                            tooltipPosition="top"
+                            [positionTop]="-20"
+                  >
+                    <div class="absolute top-30 z-1" style="top: 37%">
+                      <p-button
+                        icon="{{operation.status === 'success' ? 'pi pi-check' : 'pi pi-times'}} text-white font-bold"
+                        severity="{{operation.status}}" size="large"
+                        [rounded]="true"></p-button>
+                    </div>
+                  </p-avatar>
+                  <ng-template #tooltipContent>
+                    <div class="flex align-items-center">
+                      <span>{{ operation.tooltip }}</span>
+                    </div>
+                  </ng-template>
+                </ng-container>
+                <ng-container *ngIf="!operation.tooltip || !operation.status">
+                  <p-avatar [icon]="operation.icon"
+                            [label]="operation.icon ? '' : operation.label"
+                            styleClass="w-5rem h-5rem p-0"
+                            [style]="{'font-weight': 'bold', 'background-color': 'white', 'border': '1px solid #524c61'}"
+                            size="large"
+                  >
+                    <div class="absolute top-30 z-1" style="top: 37%" *ngIf="operation.status">
+                      <p-button
+                        icon="{{operation.status === 'success' ? 'pi pi-check' : 'pi pi-times'}} text-white font-bold"
+                        severity="{{operation.status}}" size="large"
+                        [rounded]="true"></p-button>
+                    </div>
+                  </p-avatar>
+                </ng-container>
+                <p-tag class="mb-1 mt-2" [style]="{'background-color': 'white', 'color': 'black'}"
+                       value="P: {{operation.dateTime?.planningTime | date : 'dd MMM yyyy HH:mm'}}"/>
+
+                <p-tag [style]="{'background-color': 'white', 'color': 'black'}"
+                       value="A: {{operation.dateTime?.actualTime | date : 'dd MMM yyyy HH:mm'}}"/>
+              </div>
+              <img ngSrc="assets/icons/flying-airplane.gif" alt="" [width]="100" [height]="100">
+              <div class="flex flex-column align-items-center" *ngFor="let operation of ops2571">
+                <p-avatar [icon]="operation.icon"
+                          [label]="operation.icon ? '' : operation.label"
+                          styleClass="w-5rem h-5rem p-0"
+                          [style]="{'font-weight': 'bold', 'background-color': 'white', 'border': '1px solid #524c61'}"
+                          size="large"
+                >
+                  <div class="absolute top-30 z-1" style="top: 37%" *ngIf="operation.status">
+                    <p-button
+                      icon="{{operation.status === 'success' ? 'pi pi-check' : 'pi pi-times'}} text-white font-bold"
+                      severity="{{operation.status}}" size="large"
+                      [rounded]="true"></p-button>
+                  </div>
+                </p-avatar>
+                <p-tag class="mb-1 mt-2"
+                       [style]="{'background-color': 'white', 'color': 'black'}"
+                       value="P: {{operation.dateTime?.planningTime | date : 'dd MMM yyyy HH:mm'}}"/>
+
+                <p-tag [style]="{'background-color': 'white', 'color': 'black'}"
+                       value="A: {{operation.dateTime?.actualTime | date : 'dd MMM yyyy HH:mm'}}"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="crop depart">
+          <div class="context collapsed" (click)="isOtherOpen(2)">
+            <a role="button" tabindex="0" class="tog-cal itin-det-btn">
+              <i class="fa fa-chevron-up"></i>
+              <i class="fa fa-chevron-down"></i>
+            </a>
+            <div class="item it-1">
+              <span class="trip-type depart">Departure</span>
+              <div class="route-dot">
+              </div>
+              <div class="airline-image">
+                <div class="df-text">{{ dateDiffInHours(ops11071[0].dateTime?.planningTime, ops21071[0].dateTime?.planningTime) }} Hours</div>
+                <span class="img-wrapper">
+                    <svg class="anime-airplane">
+                        <use xlink:href="#airplane"></use>
+                    </svg>
+                    <span
+                      class="top-label">Direct</span>
+                </span>
+              </div>
+
+              <div class="port-seg">
+                <div class="flight-seg origin">
+                  <div class="time">{{ ops11071[0].dateTime?.planningTime | date : 'HH:mm' }}</div>
+                  <div class="port" style="padding-right: 25px">{{ ops11071[0].departure?.short }}</div>
+                  <div class="name">{{ ops11071[0].departure?.long }}</div>
+                </div>
+                <div class="flight-seg destination">
+                  <div class="time">{{ ops21071[0].dateTime?.planningTime | date : 'HH:mm' }}</div>
+                  <div class="port">{{ ops21071[0].departure?.short }}</div>
+                  <div class="name">{{ ops21071[0].departure?.long }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="item it-2">
+              <div class="dr-row">
+                <span class="al-name">Turkish Airlines </span>
+                <img class="airline-logo"
+                     src="https://www.turkishairlines.com/theme/img/carrierairlines/carriercode_tk.png"/>
+              </div>
+              <div class="take-tim">{{ ops11071[0].dateTime?.planningTime | date : 'MMM dd, yyyy' }}</div>
+              <div class="take-tim">{{ ops11071[0].flightNumber }}</div>
+            </div>
+          </div>
+          <div id="demo3" class="fly-wrap collapse {{step2 ? 'in' : ''}}" data-parent="#accordion">
+
+            <div class="flex mb-5 gap-2 justify-content-between border-round border-1 border-black-alpha-20 p-5">
+              <div class="flex flex-column align-items-center" *ngFor="let operation of ops11071">
+                <ng-container *ngIf="operation.tooltip && operation.status">
+                  <p-avatar [icon]="operation.icon"
+                            [label]="operation.icon ? '' : operation.label"
+                            styleClass="w-5rem h-5rem p-0"
+                            [style]="{'font-weight': 'bold', 'background-color': 'white', 'border': '1px solid #524c61'}"
+                            size="large"
+                            [pTooltip]="tooltipContent"
+                            tooltipPosition="top"
+                            [positionTop]="-20"
+                  >
+                    <div class="absolute top-30 z-1" style="top: 37%">
+                      <p-button
+                        icon="{{operation.status === 'success' ? 'pi pi-check' : 'pi pi-times'}} text-white font-bold"
+                        severity="{{operation.status}}" size="large"
+                        [rounded]="true"></p-button>
+                    </div>
+                  </p-avatar>
+                  <ng-template #tooltipContent>
+                    <div class="flex align-items-center">
+                      <span>{{ operation.tooltip }}</span>
+                    </div>
+                  </ng-template>
+                </ng-container>
+                <ng-container *ngIf="!operation.tooltip || !operation.status">
+                  <p-avatar [icon]="operation.icon"
+                            [label]="operation.icon ? '' : operation.label"
+                            styleClass="w-5rem h-5rem p-0"
+                            [style]="{'font-weight': 'bold', 'background-color': 'white', 'border': '1px solid #524c61'}"
+                            size="large"
+                  >
+                    <div class="absolute top-30 z-1" style="top: 37%" *ngIf="operation.status">
+                      <p-button
+                        icon="{{operation.status === 'success' ? 'pi pi-check' : 'pi pi-times'}} text-white font-bold"
+                        severity="{{operation.status}}" size="large"
+                        [rounded]="true"></p-button>
+                    </div>
+                  </p-avatar>
+                </ng-container>
+
+                <p-tag class="mb-1 mt-2" [style]="{'background-color': 'white', 'color': 'black'}"
+                       value="P: {{operation.dateTime?.planningTime | date : 'dd MMM yyyy HH:mm'}}"/>
+
+                <p-tag [style]="{'background-color': 'white', 'color': 'black'}"
+                       value="A: {{operation.dateTime?.actualTime | date : 'dd MMM yyyy HH:mm'}}"/>
+              </div>
+              <img ngSrc="assets/icons/flying-airplane.gif" alt="" [width]="100" [height]="100">
+              <div class="flex flex-column align-items-center" *ngFor="let operation of ops21071">
+                <p-avatar [icon]="operation.icon"
+                          [label]="operation.icon ? '' : operation.label"
+                          styleClass="w-5rem h-5rem p-0"
+                          [style]="{'font-weight': 'bold', 'background-color': 'white', 'border': '1px solid #524c61'}"
+                          size="large"
+                >
+                  <div class="absolute top-30 z-1" style="top: 37%" *ngIf="operation.status">
+                    <p-button
+                      icon="{{operation.status === 'success' ? 'pi pi-check' : 'pi pi-times'}} text-white font-bold"
+                      severity="{{operation.status}}" size="large"
+                      [rounded]="true"></p-button>
+                  </div>
+                </p-avatar>
+                <p-tag class="mb-1 mt-2"
+                       [style]="{'background-color': 'white', 'color': 'black'}"
+                       value="P: {{operation.dateTime?.planningTime | date : 'dd MMM yyyy HH:mm'}}"/>
+
+                <p-tag [style]="{'background-color': 'white', 'color': 'black'}"
+                       value="A: {{operation.dateTime?.actualTime | date : 'dd MMM yyyy HH:mm'}}"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="crop depart">
+          <div class="context collapsed" (click)="isOtherOpen(3)">
+            <a role="button" tabindex="0" class="tog-cal itin-det-btn">
+              <i class="fa fa-chevron-up"></i>
+              <i class="fa fa-chevron-down"></i>
+            </a>
+            <div class="item it-1">
+              <span class="trip-type depart">Departure</span>
+              <div class="route-dot">
+              </div>
+              <div class="airline-image">
+                <div class="df-text">{{ dateDiffInHours(ops11453[0].dateTime?.planningTime, ops21453[0].dateTime?.planningTime) }} Hours</div>
+                <span class="img-wrapper">
+                    <svg class="anime-airplane">
+                        <use xlink:href="#airplane"></use>
+                    </svg>
+                    <span
+                      class="top-label">Direct</span>
+                </span>
+              </div>
+
+              <div class="port-seg">
+                <div class="flight-seg origin">
+                  <div class="time">{{ ops11453[0].dateTime?.planningTime | date : 'HH:mm' }}</div>
+                  <div class="port" style="padding-right: 25px">{{ ops11453[0].departure?.short }}</div>
+                  <div class="name">{{ ops11453[0].departure?.long }}</div>
+                </div>
+                <div class="flight-seg destination">
+                  <div class="time">{{ ops21453[0].dateTime?.planningTime | date : 'HH:mm' }}</div>
+                  <div class="port">{{ ops21453[0].departure?.short }}</div>
+                  <div class="name">{{ ops21453[0].departure?.long }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="item it-2">
+              <div class="dr-row">
+                <span class="al-name">Turkish Airlines </span>
+                <img class="airline-logo"
+                     src="https://www.turkishairlines.com/theme/img/carrierairlines/carriercode_tk.png"/>
+              </div>
+              <div class="take-tim">{{ ops11453[0].dateTime?.planningTime | date : 'MMM dd, yyyy' }}</div>
+              <div class="take-tim">{{ ops11453[0].flightNumber }}</div>
+            </div>
+          </div>
+          <div id="demo4" class="fly-wrap collapse {{step3 ? 'in' : ''}}" data-parent="#accordion">
+
+            <div class="flex mb-5 gap-2 justify-content-center border-round border-1 border-black-alpha-20 p-5">
+              <div class="flex flex-column">
+                <div class="flex mb-8">
+                  <div class="flex flex-column align-items-center" *ngFor="let operation of ops11453">
+                    <ng-container *ngIf="operation.tooltip && operation.status">
+                      <p-avatar [icon]="operation.icon"
+                                [label]="operation.icon ? '' : operation.label"
+                                styleClass="w-5rem h-5rem p-0"
+                                [style]="{'font-weight': 'bold', 'background-color': 'white', 'border': '1px solid #524c61'}"
+                                size="large"
+                                [pTooltip]="tooltipContent"
+                                tooltipPosition="top"
+                                [positionTop]="-20"
+                      >
+                        <div class="absolute top-30 z-1" style="top: 24%" *ngIf="operation.status">
+                          <p-button
+                            icon="{{operation.status === 'success' ? 'pi pi-check' : 'pi pi-times'}} text-white font-bold"
+                            severity="{{operation.status}}" size="large"
+                            [rounded]="true"></p-button>
+                        </div>
+                      </p-avatar>
+                      <ng-template #tooltipContent>
+                        <div class="flex align-items-center">
+                          <span>{{ operation.tooltip }}</span>
+                        </div>
+                      </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="!operation.tooltip || !operation.status">
+                      <p-avatar [icon]="operation.icon"
+                                [label]="operation.icon ? '' : operation.label"
+                                styleClass="w-5rem h-5rem p-0"
+                                [style]="{'font-weight': 'bold', 'background-color': 'white', 'border': '1px solid #524c61'}"
+                                size="large"
+                      >
+                        <div class="absolute top-30 z-1" style="top: 24%"  *ngIf="operation.status">
+                          <p-button
+                            icon="{{operation.status === 'success' ? 'pi pi-check' : 'pi pi-times'}} text-white font-bold"
+                            severity="{{operation.status}}" size="large"
+                            [rounded]="true"></p-button>
+                        </div>
+                      </p-avatar>
+                    </ng-container>
+
+                    <p-tag class="mb-1 mt-2" [style]="{'background-color': 'white', 'color': 'black'}"
+                           value="P: {{operation.dateTime?.planningTime | date : 'dd MMM yyyy HH:mm'}}"/>
+
+                    <p-tag [style]="{'background-color': 'white', 'color': 'black'}"
+                           value="A: {{operation.dateTime?.actualTime | date : 'dd MMM yyyy HH:mm'}}"/>
+                  </div>
+                </div>
+                <div class="flex justify-content-end">
+                  <div class="flex flex-column align-items-center" *ngFor="let operation of ops1_11453">
+                    <ng-container *ngIf="operation.tooltip &&  operation.status">
+                      <p-avatar [icon]="operation.icon"
+                                [label]="operation.icon ? '' : operation.label"
+                                styleClass="w-5rem h-5rem p-0"
+                                [style]="{'font-weight': 'bold', 'background-color': 'white', 'border': '1px solid #524c61'}"
+                                size="large"
+                                [pTooltip]="tooltipContent"
+                                tooltipPosition="top"
+                                [positionTop]="-20"
+                      >
+                        <div class="absolute top-30 z-1" style="top: 60%">
+                          <p-button
+                            icon="{{operation.status === 'success' ? 'pi pi-check' : 'pi pi-times'}} text-white font-bold"
+                            severity="{{operation.status}}" size="large"
+                            [rounded]="true"></p-button>
+                        </div>
+                      </p-avatar>
+                      <ng-template #tooltipContent>
+                        <div class="flex align-items-center">
+                          <span>{{ operation.tooltip }}</span>
+                        </div>
+                      </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="!operation.tooltip ||  !operation.status">
+                      <p-avatar [icon]="operation.icon"
+                                [label]="operation.icon ? '' : operation.label"
+                                styleClass="w-5rem h-5rem p-0"
+                                [style]="{'font-weight': 'bold', 'background-color': 'white', 'border': '1px solid #524c61'}"
+                                size="large"
+                      >
+                        <div class="absolute top-30 z-1" style="top: 60%"  *ngIf="operation.status">
+                          <p-button
+                            icon="{{operation.status === 'success' ? 'pi pi-check' : 'pi pi-times'}} text-white font-bold"
+                            severity="{{operation.status}}" size="large"
+                            [rounded]="true"></p-button>
+                        </div>
+                      </p-avatar>
+                    </ng-container>
+
+                    <p-tag class="mb-1 mt-2" [style]="{'background-color': 'white', 'color': 'black'}"
+                           value="P: {{operation.dateTime?.planningTime | date : 'dd MMM yyyy HH:mm'}}"/>
+
+                    <p-tag [style]="{'background-color': 'white', 'color': 'black'}"
+                           value="A: {{operation.dateTime?.actualTime | date : 'dd MMM yyyy HH:mm'}}"/>
+                  </div>
+                </div>
+              </div>
+              <img ngSrc="assets/icons/flying-airplane.gif" alt="" [width]="100" [height]="100"
+                   class="flex align-self-start">
+              <div class="flex flex-column">
+                <div class="flex mb-8">
+                  <div class="flex flex-column align-items-center" *ngFor="let operation of ops21453">
+                    <p-avatar [icon]="operation.icon"
+                              [label]="operation.icon ? '' : operation.label"
+                              styleClass="w-5rem h-5rem p-0"
+                              [style]="{'font-weight': 'bold', 'background-color': 'white', 'border': '1px solid #524c61'}"
+                              size="large"
+                    >
+                      <div class="absolute top-30 z-1" style="top: 24%" *ngIf="operation.status">
+                        <p-button
+                          icon="{{operation.status === 'success' ? 'pi pi-check' : 'pi pi-times'}} text-white font-bold"
+                          severity="{{operation.status}}" size="large"
+                          [rounded]="true"></p-button>
+                      </div>
+                    </p-avatar>
+                    <p-tag class="mb-1 mt-2"
+                           [style]="{'background-color': 'white', 'color': 'black'}"
+                           value="P: {{operation.dateTime?.planningTime | date : 'dd MMM yyyy HH:mm'}}"/>
+
+                    <p-tag [style]="{'background-color': 'white', 'color': 'black'}"
+                           value="A: {{operation.dateTime?.actualTime | date : 'dd MMM yyyy HH:mm'}}"/>
+                  </div>
+                </div>
+                <div class="flex">
+                  <div class="flex flex-column align-items-center" *ngFor="let operation of ops31453">
+                    <p-avatar [icon]="operation.icon"
+                              [label]="operation.icon ? '' : operation.label"
+                              styleClass="w-5rem h-5rem p-0"
+                              [style]="{'font-weight': 'bold', 'background-color': 'white', 'border': '1px solid #524c61'}"
+                              size="large"
+                    >
+                      <div class="absolute top-30 z-1" style="top: 60%" *ngIf="operation.status">
+                        <p-button
+                          icon="{{operation.status === 'success' ? 'pi pi-check' : 'pi pi-times'}} text-white font-bold"
+                          severity="{{operation.status}}" size="large"
+                          [rounded]="true"></p-button>
+                      </div>
+                    </p-avatar>
+                    <p-tag class="mb-1 mt-2"
+                           [style]="{'background-color': 'white', 'color': 'black'}"
+                           value="P: {{operation.dateTime?.planningTime | date : 'dd MMM yyyy HH:mm'}}"/>
+
+                    <p-tag [style]="{'background-color': 'white', 'color': 'black'}"
+                           value="A: {{operation.dateTime?.actualTime | date : 'dd MMM yyyy HH:mm'}}"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
+    <symbol id="airplane" viewBox="243.5 245.183 25 21.633">
+      <g>
+        <path d="M251.966,266.816h1.242l6.11-8.784l5.711,0.2c2.995-0.102,3.472-2.027,3.472-2.308
+                              c0-0.281-0.63-2.184-3.472-2.157l-5.711,0.2l-6.11-8.785h-1.242l1.67,8.983l-6.535,0.229l-2.281-3.28h-0.561v3.566
+                              c-0.437,0.257-0.738,0.724-0.757,1.266c-0.02,0.583,0.288,1.101,0.757,1.376v3.563h0.561l2.281-3.279l6.535,0.229L251.966,266.816z
+                              "/>
+      </g>
+    </symbol>
+  </svg>
+</div>

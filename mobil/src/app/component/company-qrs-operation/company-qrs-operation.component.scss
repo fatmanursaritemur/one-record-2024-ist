@@ -1,0 +1,405 @@
+
+:host ::ng-deep {
+  .p-paginator {
+    .p-paginator-current {
+      margin-left: auto;
+    }
+  }
+
+  .p-progressbar {
+    height: .5rem;
+    background-color: #D8DADC;
+
+    .p-progressbar-value {
+      background-color: #607D8B;
+    }
+  }
+
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .p-calendar .p-datepicker {
+    min-width: 25rem;
+
+    td {
+      font-weight: 400;
+    }
+  }
+
+  .p-datatable.p-datatable-customers {
+    .p-datatable-header {
+      padding: 1rem;
+      text-align: left;
+      font-size: 1.5rem;
+    }
+
+    .p-paginator {
+      padding: 1rem;
+    }
+
+    .p-datatable-thead > tr > th {
+      text-align: left;
+    }
+
+    .p-datatable-tbody > tr > td {
+      cursor: auto;
+    }
+
+    .p-dropdown-label:not(.p-placeholder) {
+      text-transform: uppercase;
+    }
+  }
+
+  .p-w-100 {
+    width: 100%;
+  }
+
+  /* Responsive */
+  .p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
+    display: none;
+  }
+
+  .p-button {
+    margin: 3px;
+  }
+
+}
+
+@media screen and (max-width: 960px) {
+  :host ::ng-deep {
+    .p-datatable {
+      &.p-datatable-customers {
+        .p-datatable-thead > tr > th,
+        .p-datatable-tfoot > tr > td {
+          display: none !important;
+        }
+
+        .p-datatable-tbody > tr {
+          border-bottom: 1px solid var(--layer-2);
+
+          > td {
+            text-align: left;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            border: 0 none;
+
+            .p-column-title {
+              min-width: 30%;
+              display: inline-block;
+              font-weight: bold;
+            }
+
+            p-progressbar {
+              width: 100%;
+            }
+
+            &:last-child {
+              border-bottom: 1px solid var(--surface-d);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.action-button {
+  margin-right: 25px;
+}
+
+::ng-deep .action-button .p-button {
+  background-color: #1976d2;
+  border: #1976d2;
+}
+
+.dialog-content {
+  padding: 20px;
+}
+
+
+:host ::ng-deep .p-button {
+  background-color: #1976d2;
+  color: white;
+  border: #1976d2;
+}
+
+:host #button {
+  background-color: #1976d2;
+  color: #1976d2;
+}
+
+.input-container {
+  margin-bottom: 15px;
+}
+
+.data-field {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-container {
+  flex: 0 0 33%; /* İki tane yan yana gelmesi için */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.detail-button {
+  background-color: #3b82f6;
+  border: #3b82f6;
+  height:35px;
+  width:35px;
+}
+
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sendButton {
+  margin-left: 10px;
+}
+
+.p-steps .p-steps-item.p-steps-disabled .p-steps-number .pi:before {
+  content: "\f00c"; // Tik işareti için Unicode değeri
+}
+
+.custom-stepper {
+  display: flex;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+}
+
+.step-line {
+  width: 70px;
+  height: 2px;
+  background-color: #ccc;
+  margin: 0 10px;
+}
+
+.step-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step.completed {
+  background-color: green;
+}
+
+.step-circle i {
+  color: white;
+}
+
+.menu-item {
+  margin-top: 75px; /* Yukarıdan boşluk */
+  font-size: 14px; /* Yazı boyutu */
+  color: #333; /* Yazı rengi */
+  font-weight: bold; /* Yazı kalınlığı */
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header .p-dialog-title {
+  margin-left: 26px;
+}
+
+.p-menubar {
+  background-color: #d4b9fc !important;
+  background: #d4b9fc !important;
+  color: #d4b9fc !important;
+}
+
+.dummy-positioning {
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+
+// The icon specifics
+// Variables
+$green:     #4cc93f;
+$icon-base-size: 20px;
+
+// Structure
+.success-icon {
+  display: inline-block;
+  width: 8em;
+  height: 8em;
+  font-size: $icon-base-size;
+  border-radius: 50%;
+  border: 4px solid lighten($green, 20%);
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+  transform-origin: center;
+  animation: showSuccess 180ms ease-in-out;
+  transform: scale(1);
+}
+
+// Elements
+.success-icon {
+
+  &__tip,
+  &__long {
+    display: block;
+    position: absolute;
+    height: 4px;
+    background-color: lighten($green, 20%);
+    border-radius: 10px;
+  }
+
+  &__tip {
+    width: 2.4em;
+    top: 4.3em;
+    left: 1.4em;
+    transform: rotate(45deg);
+    animation: tipInPlace 300ms ease-in-out;
+    animation-fill-mode: forwards;
+    animation-delay: 180ms;
+    visibility: hidden;
+  }
+
+  &__long {
+    width: 4em;
+    transform: rotate(-45deg);
+    top: 3.70em;
+    left: 2.75em;
+    animation: longInPlace 140ms ease-in-out;
+    animation-fill-mode: forwards;
+    visibility: hidden;
+    animation-delay: 300ms + 140ms;
+  }
+
+}
+
+@keyframes showSuccess {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes tipInPlace {
+  from {
+    width: 0em;
+    top: 0em;
+    left: -1.6em;
+  }
+  to {
+    width: 2.4em;
+    top: 4.3em;
+    left: 1.4em;
+    visibility: visible;
+  }
+}
+
+@keyframes longInPlace {
+  from {
+    width: 0em;
+    top: 5.1em;
+    left: 3.2em;
+  }
+  to {
+    width: 4em;
+    top: 3.70em;
+    left: 2.75em;
+    visibility: visible;
+  }
+}
+
+$color1: #f4f4f4;
+$color2: #8e2157;
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.radio {
+  margin: 0.5rem;
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    + .radio-label {
+      &:before {
+        content: '';
+        background: $color1;
+        border-radius: 100%;
+        border: 1px solid darken($color1, 25%);
+        display: inline-block;
+        width: 1.4em;
+        height: 1.4em;
+        position: relative;
+        top: -0.2em;
+        margin-right: 1em;
+        vertical-align: top;
+        cursor: pointer;
+        text-align: center;
+        transition: all 250ms ease;
+      }
+    }
+    &:checked {
+      + .radio-label {
+        &:before {
+          background-color: $color2;
+          box-shadow: inset 0 0 0 4px $color1;
+        }
+      }
+    }
+    &:focus {
+      + .radio-label {
+        &:before {
+          outline: none;
+          border-color: $color2;
+        }
+      }
+    }
+    &:disabled {
+      + .radio-label {
+        &:before {
+          box-shadow: inset 0 0 0 4px $color1;
+          border-color: darken($color1, 25%);
+          background: darken($color1, 25%);
+        }
+      }
+    }
+    + .radio-label {
+      &:empty {
+        &:before {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+

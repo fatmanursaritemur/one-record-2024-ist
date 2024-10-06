@@ -1,0 +1,28 @@
+<p-menubar styleClass="p-menubar-tgs" [model]="items"  *ngIf="checkCompanyOperation()">
+  <ng-template pTemplate="end">
+    <img src="assets/icons/tgs2.png" height="60" />
+
+  </ng-template>
+</p-menubar>
+
+<p-menubar styleClass="p-menubar-qrs " [model]="items"  *ngIf="checkQrsCompanyOperation()">
+  <ng-template pTemplate="end">
+
+    <img src="assets/icons/resim.png" height="60" />
+  </ng-template>
+</p-menubar>
+
+<p-menubar styleClass="p-menubar-qws" [model]="items"  *ngIf="checkQwsCompanyOperation()">
+  <ng-template pTemplate="end">
+    <img src="assets/icons/qws7.png" height="60" />
+  </ng-template>
+</p-menubar>
+
+<p-menubar styleClass="p-menubar-cargo" [model]="items"  *ngIf="checkCargoCompanyOperation()">
+  <ng-template pTemplate="end">
+    <img src="assets/icons/cargo.png" height="60" />
+  </ng-template>
+</p-menubar>
+<div>
+  <router-outlet></router-outlet>
+</div>
